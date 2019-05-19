@@ -156,6 +156,18 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   });
 ```
 
+ - If want to simulate a password
+ 
+ ```php
+  $faker->bcrypt('passwordStringToTest');
+```
+
+ - If want to simulate a names or phrases with some number of words, faker support with some methods like name, paragraph, text, address ect two arguments the number of words to display and false as second param:
+ 
+ ```php
+  $faker->paragraph(3, false);
+```
+
 ## Request
 
  - If you want to get all data submitted from any request you could get it as an object with:
@@ -177,3 +189,21 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
  - unique() to not repeat some data in DB.
  - unique() have an exception you could pass as argument the id of current model to access update method and update some data but if the unique field is the same it will accept an exception from the same model id.
  
+## Artisan commands
+
+ - To make a migration and seed joined you could write a migration with a flag:
+ 
+```php
+  php artisan migrate:fresh/refresh --seed// to make a migration and fill data at once
+```
+
+ - If you are working with a CRUD you could use some flags to avoid creating all related files from a certain model one by one.
+ you could create a model with this flags:
+ 
+```php
+  php artisan make model ModelNameInSingularToMaintainConvention -a  
+```
+
+ It makes a model with a model with convention to be related with current controller, 
+ a controller with boilerplate of a source controller and related with a model, a migration and a factory related.
+ all at once and with all boilerplate correctly related and reference it.
