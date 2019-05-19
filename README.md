@@ -207,3 +207,13 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
  It makes a model with a model with convention to be related with current controller, 
  a controller with boilerplate of a source controller and related with a model, a migration and a factory related.
  all at once and with all boilerplate correctly related and reference it.
+ 
+ ## Routes
+ 
+  - To generate all default routes from a CRUD you could use resource type:
+   
+```php
+  Route::resource('post', 'PostController');
+  //to generate post urls in PostController file with the convention routes pointing to convention controller methods  
+```
+ 
