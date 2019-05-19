@@ -79,4 +79,42 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   });
  ```
   
-
+  ## Model changes
+  
+  - you could cast values of certain fields
+  - you could use the convention of model as singular and table as plural but you could change this as: 
+  
+ ```php
+  protected $table = '*TableNamePlaceholder*';
+ ```
+  - you could maintain the convention of table id as 'id', but if you change it the model binding and the find() method
+  will fail so to use it as usually you need to change the primary key value explicit as:
+  
+ ```php
+  protected $primaryKey = '*idPlaceholder*';
+ ```
+  - either you could change the default name of timestamps values 'created_at' and 'updated_at' like this:
+  
+ ```php
+  const CREATED_AT = '*createdAtTitleChangedPlaceholder*';
+  const UPDATED_AT = '*updatedAtTitleChangedPlaceholder*';
+ ```
+  - Remember to fill data in table you need to be explicit to avoid the massive assignment prevention of Laravel as:
+  
+ ```php
+  protected $fillable = [ 'row1', 'row2' .... ];
+ ```
+ 
+  - a pretty interesting setting in model is the ability to set some property as softdelete to protect it and the delete method work only as a softdelete, you could use softDelete() method but in some cases you will set this in the model to prevent to delete a specific field and to work as some interface to other developers or the same in the future to protect from him or herself.
+  
+ ```php
+  use Illuminate\Database\Eloquent\SoftDeletes;
+  class post extends Model 
+  {
+    use SoftDeletes;//this set a softDelete only to this field on DB or property of model. (here delete() works same as softDelete() ).
+    protected $date = 'nameOfTheDateRowOrWhateverRowTypeOrNameIsJustAnExample';
+  }
+ ```
+ 
+ 
+ 
