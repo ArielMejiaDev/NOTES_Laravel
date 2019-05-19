@@ -116,7 +116,7 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   }
  ```
  
- ## auth validation
+ ## Auth validation
  
   - To make a manual compare from Password enter by a user and password from DB you could use the method Hash::check()
   it requeries two params, first the password write and send by user and the password of a model 
@@ -158,9 +158,13 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
 
 ## Request
 
- - If you want to get all data submitted
+ - If you want to get all data submitted from any request you could get it as an object with:
 ```php
   $Request();
+```
+ - If you want to get data from a request but not a form request, (REST API) for example
+ ```php
+  $Request()->user;//or whatever property that be part of the request object
 ```
  - you could get inputs data from a request as :
  
