@@ -78,6 +78,28 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
       $table->timestamps();
   });
  ```
+  - You can change the type of some migration property in model by cast a property 
+  in model file but instead of this you can add directly in your migrations the type boolean and no need to cast an integer to bool
+  
+```php
+  Schema::create('products', function (Blueprint $table) {
+      $table->bigIncrements('id');
+      $table->string('name');
+      $table->boolen('status');//instead of integer
+      $table->timestamps();
+  });
+ ```
+  - You can set default values for some fields directly in migration and saves you 
+  add it to all factories or even as a default value when the app is on production.
+  
+```php
+  Schema::create('products', function (Blueprint $table) {
+      $table->bigIncrements('id');
+      $table->string('name');
+      $table->boolen('status')->default(0);//instead of integer
+      $table->timestamps();
+  });
+ ```
   
   ## Model changes
   
