@@ -3,7 +3,7 @@ This repo contains notes, warnings, tricks and tips from my development experien
 
 ## Change Timezone
 config folder - app.php file
-in config array on "timezone" key change the value from UTC to date time you want, search in [PHP DOCS] : (https://www.php.net/manual/es/timezones.php)
+in config array on "timezone" key change the value from UTC to date time you want, search in [PHP DOCS](https://www.php.net/manual/es/timezones.php)
 
 ## Work with SqlServer:
 - "SA" is the root user, password is from installation or you could create a user with SQL Server Manager 
@@ -11,14 +11,16 @@ in config array on "timezone" key change the value from UTC to date time you wan
 - If use Linux could install from [Microsoft guide] ()
 - if use Windows you will need ODBC installer and SQL Server Manager
 - dates not work as well as in Mysql or Sql lite so you need to change dates from migrations in Models files, you have two options:
-  - Cast the property $dateFormat that join created_at and updated_at fields with the next code: 
+
+Cast the property $dateFormat that join created_at and updated_at fields with the next code: 
   
-  ```php
+```php
     protected $dateFormat = 'Ymd H:i:s';
-  ```
+```
   
  Or overwrite the original method that writes the date in Eloquent with a trait, something like this:
-   ```php
+ 
+```php
   namespace App;
   trait SqlServerGetDateFormat
   {
@@ -28,11 +30,11 @@ in config array on "timezone" key change the value from UTC to date time you wan
       }
 
   }
-    ```
- This allow to add the trait to all models from app folder with and elegant way and no need to cast all models dateFormat fileds, like:
+```
+
+ This allow to add the trait to all models from app folder with and elegant way and no need to cast all models dateFormat fileds, like.
  
  ```php
- 
   namespace App;
   use Illuminate\Notifications\Notifiable;
   use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -42,7 +44,6 @@ in config array on "timezone" key change the value from UTC to date time you wan
       use Notifiable, SqlServerGetDateFormat;
       ...
   }
-  
  ```
   
-  
+
