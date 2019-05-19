@@ -116,5 +116,60 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   }
  ```
  
+ ## auth validation
  
+  - To make a manual compare from Password enter by a user and password from DB you could use the method Hash::check()
+  it requeries two params, first the password write and send by user and the password of a model 
+  but this cant be fetch directly as "model->password" so you could use "model->getAuthPassword()" to get the model certainly you
+  will need something as id or email or user to find the model to compare with find() method 
+  so a very complete example will be something like this.
+  
+ ```php
+  public function index(Request $request)
+  {
+    $user = $this->repo->getUserCredentials($request->email);//Repo get user from DB by email
+    //send the model from repo and the request with data provided by user.
+    $this->validates(['user' => $user, 'request' => $request]);
+  {
+  
+  public function validates($data)//data is the array
+  {
+       if ($data['user']) {//if user exists because findOrfail redirect and find returns null or false
+            if (Hash::check($data['request']->password, $data['user']->getAuthPassword())) {
+                return 'OK You are logged in';
+            }
+        }
+        return 'Auth Error!';
+  {
+```
+ 
+ ## Faker tricks
+ 
+  - you could need to fill data in a factory with some data related from user instead of use an array with users ids, and a random value from those with native function rand(minId, MaxId), you could do this:
+  
+```php
+  $factory()->define(App\SomeModel::class, function(Faker $faker) {
+    return [
+      'author' => App\User::all()->random(),
+      ...
+    ];
+  });
+```
+
+## Request
+
+ - If you want to get all data submitted
+```php
+  $Request();
+```
+ - you could get inputs data from a request as :
+ 
+```php
+  $Request()->input('inputNameFromNameAttributeInHTML');
+```
+
+## Validations
+
+ - unique() to not repeat some data in DB.
+ - unique() have an exception you could pass as argument the id of current model to access update method and update some data but if the unique field is the same it will accept an exception from the same model id.
  
