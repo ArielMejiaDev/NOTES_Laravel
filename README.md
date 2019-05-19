@@ -45,5 +45,38 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
       ...
   }
  ```
+ 
+ Other way to fix this is to cut the length of the default date format of Laravel migrations to:
+ 
+  ```php
+    $table->timestamps(4);
+  ```
+  ## Migraciones
+  
+ From Laravel 5.6 the auth could have a user migration with type "bigIncrement" instead of "increment".
+ both could be use but if a migration have bigIncrement in some field to be referenced as foreign key you will need
+ to be explicit with it as "unsignedInteger" if its "increment" or "unsignedBigInteger" if its "bigIncrement".
+ you could read more about it [here a Larvel Daily post](https://laraveldaily.com/be-careful-laravel-5-8-added-bigincrements-as-defaults/)
+ 
+ File Of strong type model.
+ 
+ ```php
+  Schema::create('transactions_types', function (Blueprint $table) {
+    $table->bigIncrements('id');
+    $table->string('name');
+    $table->timestamps();
+  });
+  ```
+  File of week type
+  
+ ```php
+  Schema::create('transactions', function (Blueprint $table) {
+      $table->bigIncrements('id');
+      $table->bigInteger('transaction_type_id')->unsigned();//--------------------------Here is the change from integer to bigInteger.
+      $table->foreign('transaction_type_id')->references('id')->on('transactions_types');
+      $table->decimal('amount');
+      $table->timestamps();
+  });
+ ```
   
 
