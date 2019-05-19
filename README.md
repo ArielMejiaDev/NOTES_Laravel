@@ -116,6 +116,21 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   }
  ```
  
+  - To make get data of an object binded by foreign key you can create custom functions in models to get data related 
+    with the id of the foreign key a classic example is the relation that have a post from a blog with an author, 
+    in this example a post just can have one author so the relation is one to many, 
+    one author to many posts that can be written by the same author, so a post belongs to one author:
+    
+  ```php
+  public function author()
+  {
+    //if user model follows the convention of id with name 'id'
+    return $this->belongsTo(App\user);
+    //else you can add a second param with the custom id field name
+    return $this->belongsTo(App\user, 'id_author');
+  }
+ ```
+ 
  ## Auth validation
  
   - To make a manual compare from Password enter by a user and password from DB you could use the method Hash::check()
