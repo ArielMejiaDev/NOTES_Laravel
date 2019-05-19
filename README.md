@@ -17,8 +17,18 @@ in config array on "timezone" key change the value from UTC to date time you wan
     protected $dateFormat = 'Ymd H:i:s';
   ```
   
- Or overwrite the original method that writes the date in Eloquent with a trait, something like this: 
-  
+ Or overwrite the original method that writes the date in Eloquent with a trait, something like this:
+   ```php
+  namespace App;
+  trait SqlServerGetDateFormat
+  {
+      public function getDateFormat()
+      {
+          return 'Y-m-d H:i:s';
+      }
+
+  }
+    ```
  This allow to add the trait to all models from app folder with and elegant way and no need to cast all models dateFormat fileds, like:
  
  ```php
