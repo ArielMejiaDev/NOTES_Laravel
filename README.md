@@ -204,6 +204,30 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
  - unique() to not repeat some data in DB.
  - unique() have an exception you could pass as argument the id of current model to access update method and update some data but if the unique field is the same it will accept an exception from the same model id.
  
+ - you can use validate() method from request to validate data in a very elegant way:
+ 
+```php
+  $Request()->validate([ 'name' => 'required' ]);
+  //if we set more than one rule the values of the array key that represent the name of 
+  //the request property must be an array or string with separated by comas
+  $Request()->validate([ 'email' => 'required, email, min:5' ]);
+  //or params as array more elegant
+  $Request()->validate([ 'email' => ['required', 'email', 'min:5'] ]);
+  //some example with unique in this case (unique:"tableNamePlaceholder*") refers to db column name to search that be unique
+  //and concat exception id if the record updated is the same
+  $Request()->validate([ 'email' => ['required', 'email', 'min:5', 'unique:users'.$user->id] ]);
+  //From Laravel 5.8 we could do this to pass the column name from db as string and chain a ignore method with user id
+   Rule::unique('users')->ignore($user->id),
+  //this method Rule support model binding so instead of the int key you could pass entire model
+  Rule::unique('users')->ignore($user)
+  //if you not follow the id convention of call any id as 'id' in migrations you will need to add the id column name as the second param
+  Rule::unique('users')->ignore($user->id, 'user_id')
+  // you could set more than one field unique as this
+  Rule::unique('users', 'email_address')->ignore($user->id),
+```
+ 
+ [Reference Laravel Doc](https://laravel.com/docs/5.8/validation#rule-unique)
+ 
 ## Artisan commands
 
  - To make a migration and seed joined you could write a migration with a flag:
