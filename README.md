@@ -277,4 +277,9 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   Route::resource('post', 'PostController');
   //to generate post urls in PostController file with the convention routes pointing to convention controller methods  
 ```
+
+## Blade
+ 
+ - To display data with too much length laravel provide a helper str_limit() and requires two params first the string to show
+ and second the number of letters to count and after that the helper display three dots like ... good for long texts.
  
