@@ -299,3 +299,12 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   sudo /sbin/mkswap /var/swap.1
   sudo /sbin/swapon /var/swap.1
 ```
+
+## Dates with Carbon
+
+ - to change format of a date you will need a carbon instance and you can reorder a date to any other format:
+ ```php
+  $date = Carbon::now();
+  $date = $date->format('d-m-Y');//print date like 07-05-2015
+  $date->format('l jS \\of F Y h:i:s A'); // print date like Thursday 7th of May 2015 01:17:56 PM
+```
