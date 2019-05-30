@@ -308,3 +308,9 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   $date = $date->format('d-m-Y');//print date like 07-05-2015
   $date->format('l jS \\of F Y h:i:s A'); // print date like Thursday 7th of May 2015 01:17:56 PM
 ```
+ - If you recibe another date format to became it a Carbon instance just:
+ 
+  ```php
+  $otherDate = '2019-05-28';
+  $date = Carbon::createfromformat('Y-m-d', $otherDate);
+```
