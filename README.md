@@ -361,3 +361,8 @@ if(request()->validate([
  {{ asset('storage/'.$user->image) }} // asset helper write the app address and concatenate it with the $user->image in this example
  //it will be something like youapp.com/storage/uploads/user-avatar.png
 ```
+
+ - Delete file stored in store folder the path to file is relative from storage disk so if path is storage/public/uploads/avatar.png:
+```php
+ Storage::delete('public/'.$user->image);//$user->image is = to 'uploads/avatar.png'
+```
