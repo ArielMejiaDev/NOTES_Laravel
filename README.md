@@ -352,7 +352,7 @@ if(request()->validate([
  - create a symbolic link
    laravel have an artisan command since 5.3 version to create a symbolic link to show files stored in store folder into a public folder    just type the command:
    
-```php
+```bash
  php artisan storage:link
 ```
  - Show the image from store folder
