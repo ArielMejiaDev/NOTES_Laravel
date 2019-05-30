@@ -314,3 +314,10 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   $otherDate = '2019-05-28';
   $date = Carbon::createfromformat('Y-m-d', $otherDate);
 ```
+## Manage images
+
+ - Upload an image to store folder
+ - validate an image
+ - Store an image into DB
+ - create a symbolic link
+ - Show the image from store folder
