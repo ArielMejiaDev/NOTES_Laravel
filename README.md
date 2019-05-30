@@ -317,7 +317,47 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
 ## Manage images
 
  - Upload an image to store folder
+ from a request you could call the method store from request object (https://laravel.com/docs/5.8/requests#storing-uploaded-files)
+ ```php
+ //store image in storage/app/images
+  $path = $request->photo->store('images');
+  //if you need to store it in subfolder you can pass it as second param to store it in storage/app/public/uploads
+  $path = $request->photo->store('uploads', 'public');
+```
+ 
  - validate an image
+  you can validate as any other request object as:
+```php
+if(request()->has('nameOfInputInForm')){
+  //execute anything
+} 
+```
+ - other type of validation is to use the validate method from request object
+
+```php
+if(request()->validate([
+  'imageInputNameFromForm' => 'required|mimes:jpeg,jpg,png|max:5000',//max will validate length in string but in images validate weight of the file
+])){
+  //execute anything
+} 
+```
+
  - Store an image into DB
+ You can add it to a model as any other string in a property using the store method it return a string with the path to just assign it    to a model property like:
+
+```php
+ $user->image = request()->image->store('uploads', 'public');
+```
+ 
  - create a symbolic link
+   laravel have an artisan command since 5.3 version to create a symbolic link to show files stored in store folder into a public folder    just type the command:
+   
+```php
+ php artisan storage:link
+```
  - Show the image from store folder
+ 
+ ```php
+ {{ asset('storage/'.$user->image) }} // asset helper write the app address and concatenate it with the $user->image in this example
+ //it will be something like youapp.com/storage/uploads/user-avatar.png
+```
