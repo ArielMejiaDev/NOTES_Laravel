@@ -310,7 +310,7 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
 ```
  - If you recibe another date format to became it a Carbon instance just:
  
-  ```php
+```php
   $otherDate = '2019-05-28';
   $date = Carbon::createfromformat('Y-m-d', $otherDate);
 ```
