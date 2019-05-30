@@ -283,3 +283,19 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
  - To display data with too much length laravel provide a helper str_limit() and requires two params first the string to show
  and second the number of letters to count and after that the helper display three dots like ... good for long texts.
  
+## Composer issues
+  - to update a Laravel version just write:
+```bash
+  composer update
+```
+ - if any project will need to be deploy write:
+```bash
+  composer install
+```
+ - if composer returns an error like Cannot update packages anymore "Fatal error: Out of memory (allocated 1392771072) (tried to allocate 268435456 bytes)" write:
+ 
+```bash
+  sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+  sudo /sbin/mkswap /var/swap.1
+  sudo /sbin/swapon /var/swap.1
+```
