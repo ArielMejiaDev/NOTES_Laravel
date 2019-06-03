@@ -366,3 +366,15 @@ if(request()->validate([
 ```php
  Storage::delete('public/'.$user->image);//$user->image is = to 'uploads/avatar.png'
 ```
+## Packages
+
+### Searchable (https://github.com/nicolaslopezj/searchable)
+
+The readme is very clear so just follow it as the entire search text bullet indicates, but in some configs the package throws an error as: 
+  - Laravel : Syntax error or access violation: 1055 Error
+  In this case the solution is simple just go to config folder and database.php file and in mysql array change 
+  the key value from true   to false.
+  
+```php
+  'strict' => false,
+```
