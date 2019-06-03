@@ -51,7 +51,7 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   ```php
     $table->timestamps(4);
   ```
-  ## Migraciones
+  ## Migrations
   
  From Laravel 5.6 the auth could have a user migration with type "bigIncrement" instead of "increment".
  both could be use but if a migration have bigIncrement in some field to be referenced as foreign key you will need
@@ -314,6 +314,20 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
   $otherDate = '2019-05-28';
   $date = Carbon::createfromformat('Y-m-d', $otherDate);
 ```
+ 
+  - Create format of date customized to became 2019-05-28 date as string to 28/04/2019 as a latin date string or other countries just add the format helper
+  
+```php
+   Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y')
+```
+  
+  - To create a custome date string you can use isoFormat helper
+ 
+```php
+   Carbon::createFromFormat('Y-m-d', $date)->isoFormat('Do MMMM YYYY')
+```
+  
+
 ## Manage images
 
  - Upload an image to store folder
