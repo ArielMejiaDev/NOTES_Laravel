@@ -392,3 +392,174 @@ The readme is very clear so just follow it as the entire search text bullet indi
 ```php
   'strict' => false,
 ```
+
+## Send emails
+     - You can implement email name of the app and email sender when someone recibed an email just fill the file in config/mail.php
+     and change the example value and example email with real data:
+```php
+    'from' => [
+      'address' => env('MAIL_FROM_ADDRESS', 'yourapp@mail.com'),
+      'name' => env('MAIL_FROM_NAME', 'Your app'),
+    ],
+```
+
+  - Then for development you can work with gmail and in production you can also if you follow some steps:
+  change env file of mail config
+
+```env
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=yourmailwithoutcommas@gmail.com
+MAIL_PASSWORD=yourpasswordwithoutcommas
+MAIL_ENCRYPTION=ssl
+```
+
+  - Then you need to access to your account and config security section and allow not safe apps 
+  (no matter because its you)(link)[https://myaccount.google.com/lesssecureapps?utm_source=google-account&utm_medium=web]
+  
+  - In some rarely cases you need to disable recaptcha you can do it 
+  with this (link)[https://accounts.google.com/b/0/DisplayUnlockCaptcha]
+  
+  And thats all you have your gmail account ready to send emails with Laravel in development and in production enviroments.
+  for massive email feature its not recommended you need some tool like mailgun, or other you can consult 
+  (this guide)[https://scotch.io/tutorials/ultimate-guide-on-sending-email-in-laravel]
+  
+  - Customize the reset notification: 
+  
+    ```
+    ## IF YOU NEED JUST TRANSLATE THE EMAIL YOU CAN USE (LARAVEL CAOUECS PACKAGE)[https://github.com/caouecs/Laravel-lang], 
+    JUST FOLLOW README IT HAVE VERY WELL AND EASY DOCS
+    OR ANY OTHER THERE ARE MANY TO HANDLE THIS.
+    ```
+    
+  
+  1. Create a new notification: name not matter but to follow the Laravel Standard
+  
+```env
+  php artisan make:notification ResetPasswordNotification
+```
+  2. Now in app folder we have new notifications folder and then inside we have the file ResetPasswordNotification.php
+  
+  3. Now we are going to copy all content of the class 
+  ResetPassword in vendor/laravel/src/Illuminate/Auth/notifications/ResetPassword.php and we are going to paste it 
+  in our custome app/notifications/ResetPasswordNotification.php file in the body of the class
+  ```php 
+      /**
+     * The password reset token.
+     *
+     * @var string
+     */
+    public $token;
+
+    /**
+     * The callback that should be used to build the mail message.
+     *
+     * @var \Closure|null
+     */
+    public static $toMailCallback;
+
+    /**
+     * Create a notification instance.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function __construct($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * Get the notification's channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array|string
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * Build the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        if (static::$toMailCallback) {
+            return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+        }
+
+        return (new MailMessage)
+            ->subject(Lang::getFromJson('Reset Password Notification'))
+            ->line(Lang::getFromJson('You are receiving this email because we received a password reset request for your account.'))
+            ->action(Lang::getFromJson('Reset Password'), url(config('app.url').route('password.reset', 
+            ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
+            ->line(Lang::getFromJson('This password reset link will expire in :count minutes.', 
+            ['count' => config('auth.passwords.users.expire')]))
+            ->line(Lang::getFromJson('If you did not request a password reset, no further action is required.'));
+    }
+
+    /**
+     * Set a callback that should be used when building the notification mail message.
+     *
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public static function toMailUsing($callback)
+    {
+        static::$toMailCallback = $callback;
+    }
+```
+    
+    4. Now we need to copy the trait sendPasswordResetNotification from the file vendor/laravel/src/Auth/passwords/CanResetPassword.php
+    and paste in our User model, in app/User.php
+   
+```php
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+        //ResetPasswordNotification this name is the same because we create it with same name to follow the Laravel convention
+    }
+```
+
+  5. Now we need to import our custome notification in User model:
+    
+```php
+// User model
+use App\Notifications\ResetPasswordNotification;
+class User extends Authenticatable
+{
+....
+}
+```
+  6. Now we just need to customize the data to send in app/notifications/ResetPasswordNotification in 
+  sendPasswordResetNotifications trait, with our custome data as for example:
+  
+```php
+        return (new MailMessage)
+            ->subject(Lang::getFromJson('Reset Password Notification'))
+            ->line(Lang::getFromJson('Well well you forgot your password again.. :)'))
+            ->action(Lang::getFromJson('Reset Password ;)'), url(config('app.url').route('password.reset', ['token' => $this->token, 
+            'email' => $notifiable->getEmailForPasswordReset()], false)))
+            ->line(Lang::getFromJson('You only have :count minutes to use this link so quickly!.', ['count' => 
+            config('auth.passwords.users.expire')]))
+          
+```
+
+  * since Laravel 5.7 many files autogenerated have the Lang::getFromJson helper or the blade syntax for the same {{ __('') }} , 
+  if is not your case its recommendable to add it.
+    
+  
+  
+    
+
