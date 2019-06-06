@@ -560,6 +560,55 @@ class User extends Authenticatable
   if is not your case its recommendable to add it.
     
   
-  
-    
+  ## Deploy
 
+  # Heroku
+  To deploy to heroku you will follow this guide, this guide is based in different Heroku documentations:
+  
+```bash
+  composer create-project laravel/laravel --prefer-dist the_name_of_your_app
+  cd the_name_of_your_app
+  git init
+  git add .
+  git commit -m "new laravel project"
+  echo "web: vendor/bin/heroku-php-apache2 public/" > Procfile
+  git add .
+  git commit -m "Procfile for Heroku"
+  heroku create the_name_of_your_app
+  heroku config:set APP_KEY= the_app_key_of_your_project_env_file
+  git push heroku master
+  heroku open
+```
+
+  - and change log file to get generated logs and view files, to view logs in Heroku you need 
+  to change the log in your laravel project in config/logging.php
+ 
+ ```php
+ <?php
+return [
+    'default' => env('LOG_CHANNEL', 'stack'),
+    'channels' => [
+        'stack' => [
+            'driver' => 'stack',
+            'channels' => ['single'],
+        ],
+        'single' => [
+            'driver' => 'errorlog',
+            'level' => 'debug',
+        ],
+…
+```
+ 
+   - Then you need to add and push your changes to Heroku app
+
+```bash
+  git add config/logging.php
+  git commit -m "use errorlog"
+  git push heroku master
+```
+  - this workflow is same as git and with every change to be reflect in Heroku you need to type those commands
+  
+  - To add load balancers in Heroku or Amazon Web Service the guide will be added in some time but refference is in this (link)
+  [https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer]
+  
+  
