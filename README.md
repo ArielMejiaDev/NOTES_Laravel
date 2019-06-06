@@ -580,6 +580,21 @@ class User extends Authenticatable
   heroku open
 ```
 
+  - You need to all values of env file in Heroku by command like "heroku config:set APP_KEY=132..." or use the Heroku dashboard
+  you need to add the next env values:
+    - APP_NAME=Laravel
+    - APP_ENV=local, or production depends on purpose of server
+    - APP_KEY=your_app_key_generated_by_laravel_by_default_or_with_composer_key_generate_command
+    - APP_DEBUG=true
+    - APP_URL=replace_with_app_vars_provided_by_heroku_in_dashboard
+    - LOG_CHANNEL=stack
+    - DB_CONNECTION=pgsql
+    - DB_HOST=replace_with_app_vars_provided_by_heroku_in_dashboard
+    - DB_PORT=5432
+    - DB_DATABASE=the_name_of_your_app
+    - DB_USERNAME=replace_with_app_vars_provided_by_heroku_in_dashboard
+    - DB_PASSWORD=replace_with_app_vars_provided_by_heroku_in_dashboard
+
   - and change log file to get generated logs and view files, to view logs in Heroku you need 
   to change the log in your laravel project in config/logging.php
  
