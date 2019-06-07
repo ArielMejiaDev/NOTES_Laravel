@@ -421,6 +421,16 @@ MAIL_ENCRYPTION=ssl
   - In some rarely cases you need to disable recaptcha you can do it 
   with this (link)[https://accounts.google.com/b/0/DisplayUnlockCaptcha]
   
+  - If you work with AWS or Heroku depends on where it host you need to aprove access of your account from other device
+  ------------------------------------------------------------------------------------------------------------------------------
+  THIS STEP TAKE A FEW MINUTES TO SEND AN EMAIL TO YOUR ACCOUNT TO GIVE ACCESS OR VERIFY IF ITS OK TO GIVE ACCESS TO 
+  YOUR ACCOUNT WITH OTHER DEVICE.
+  
+  YOU CAN USE THIS LINK TO UNLOCK CAPTCHA AGAIN
+  (LINK)[https://accounts.google.com/b/0/DisplayUnlockCaptcha]
+  OR GO TO YOUR EMAIL AND WAAAIT SOME TIME LIKE 5 MINUTES OR 10 AND ACCEPT THE ACCESS OF YOUR ACCOUNT FROM OTHER DEVICE
+  ------------------------------------------------------------------------------------------------------------------------------
+  
   And thats all you have your gmail account ready to send emails with Laravel in development and in production enviroments.
   for massive email feature its not recommended you need some tool like mailgun, or other you can consult 
   (this guide)[https://scotch.io/tutorials/ultimate-guide-on-sending-email-in-laravel]
