@@ -700,3 +700,15 @@ Route::group(['prefix' => 'v1', 'middleware' => 'VerifyAccessKey' ], function() 
   * parameters helper generate a change to accept the route: /users/{admin_user}
   
   - to return errors from validate helper in json format you also can use this guide (Click Here)[https://jamesmills.co.uk/2019/06/05/how-to-return-json-from-laravel-form-request-validation-errors/]
+  
+  ## avoid guests discover routes of the app:
+  
+  - helper any catch all types of request POST, GET, PUT, DELETE ... I pass the middleware auth to redirect every guests request 
+  to login, this prevents to show page 404 if user is not authenticated so guests will type route that exist or not and 
+  always be redirect to login page
+  
+```php
+Route::any('{any}', function() {
+    throw new NotFoundHttpException;
+})->where('any', '.*');
+```
