@@ -656,7 +656,21 @@ return [
   
 ```
   
+  - Seed in heroku
   
+  seeding is not created for production enviroment its created to development, but in certain cases its helpful to set data by
+  seeding, for those cases:
+  yo need to go in development to your composer.json file you will find in require-dev fzaninotto/faker and you need to add it in
+  require object also so add fzaninotto/faker to require object and push your changes to your repo and heroku
+  
+```bash
+  git push origin master
+  git push heroku master
+  heroku run bash //This creates a one-off-dyno in your heroku app.
+  composer update //now if you check vendor folder you can see fzaninotto/faker package installed.
+  php artisan db:seed //Your database will be seeded.
+```
+
   ## Handling API
   
   - to return any error request as a json you can add You can just set header key Accept :application/json and 
