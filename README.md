@@ -636,6 +636,26 @@ return [
   - To add load balancers in Heroku or Amazon Web Service the guide will be added in some time but refference is in this (link)
   [https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer]
   
+  - To get another remote repo of a heroku project you need to add the remote as:
+```bash
+
+  heroku git:remote -a appname
+  
+``` 
+  and make pull or fetch and merge from heroku as:
+
+```bash
+
+  git pull heroku master
+  
+  //OR
+  
+  git fetch heroku master
+  
+  git merge heroku/master
+  
+```
+  
   
   ## Handling API
   
