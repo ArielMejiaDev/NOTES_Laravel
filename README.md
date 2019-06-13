@@ -179,7 +179,35 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
         return 'Auth Error!';
   {
 ```
+
+ ## Change auth redirect if authenticated
  
+ - to change the route to go after authenticated is true you can change the property $redirectTo
+
+```php
+  class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';//change this to any route that exists in your web.php file
+```
+
  ## Faker tricks
  
   - you could need to fill data in a factory with some data related from user instead of use an array with users ids, and a random value from those with native function rand(minId, MaxId), you could do this:
