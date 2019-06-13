@@ -208,6 +208,15 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
     protected $redirectTo = '/home';//change this to any route that exists in your web.php file
 ```
 
+## Blade Includes
+
+- to include a subview with or without data to pass as param you can add the next directive 
+remember always have to use the absolute path to a view: 
+
+```php
+  @include('partials.header', ['title' => 'First Page'])
+```
+
  ## Faker tricks
  
   - you could need to fill data in a factory with some data related from user instead of use an array with users ids, and a random value from those with native function rand(minId, MaxId), you could do this:
