@@ -100,6 +100,21 @@ Cast the property $dateFormat that join created_at and updated_at fields with th
       $table->timestamps();
   });
  ```
+ 
+ - Fixing error Integrity constraint violation: 19 NOT NULL constraint failed:
+ The errors of type constraint indicates that some foreign key was created with error format, a correct foreign key need to be
+ unsigned and of type integer or bigInteger because the id of referenced table must be autoincrement or bigIncrement and to 
+ match the same type but without to handle autoincrement feature because its not a primary key, you will need on of those two
+ formats, so the migration need to be fixed to something like this:
+ 
+```php
+  Schema::create('assignments', function (Blueprint $table) {
+  
+    $table->unsignedBigInteger('team_id');
+    $table->foreign('team_id')->references('id')->on('teams');
+    
+  });
+```
   
   ## Model changes
   
