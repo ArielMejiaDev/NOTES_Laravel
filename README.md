@@ -796,5 +796,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'VerifyAccessKey' ], function() 
 ```php
 Route::any('{any}', function() {
     throw new NotFoundHttpException;
-})->where('any', '.*');
+})->where('any', '.*')->middleware('auth');
+//OR
+Route::any('{any}', function() {
+    return abort(404);
+})->where('any', '.*')->middleware('auth');
 ```
