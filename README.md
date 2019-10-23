@@ -802,3 +802,21 @@ Route::any('{any}', function() {
     return abort(404);
 })->where('any', '.*')->middleware('auth');
 ```
+
+## Unit Tests methods
+
+Here are some common methods use to assert some tests
+```php
+$this->assertStatus(200);
+$this->assertOk();
+$this->assertStatus(302);
+$this->assertRedirect();
+$this->assertStatus(404);
+$this->assertNotFound();
+$this->assertStatus(403);
+$this->assertForbiden();
+$this->assertSee('text or html tag to see');
+$this->assertDontSee('text or html tag missed');
+$this->assertViewIs('path.of.the.view');
+```
+
