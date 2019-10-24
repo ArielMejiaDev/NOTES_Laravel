@@ -818,5 +818,7 @@ $this->assertForbiden();
 $this->assertSee('text or html tag to see');
 $this->assertDontSee('text or html tag missed');
 $this->assertViewIs('path.of.the.view');
+Response::allow('custom message', 200);
+Response::deny('custom message for code 403', 403);
 ```
 
